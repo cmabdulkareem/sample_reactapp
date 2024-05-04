@@ -1,24 +1,22 @@
-import React, {useEffect, useState} from "react"
-import axios from 'axios'
-import Card from "./components/Card"
+import React, {useState, useEffect} from 'react'
+import Card from "./component/Card";
+import AdminHeader from './component/Header/AdminHeader';
+import UserHeader from './component/Header/UserHeader';
+import axios from "axios";
+
+
 
 function App() {
-  const [data, setData] = useState([]);
-
-  useEffect(()=>{
-    axios.get('/api/')
-      .then((response)=>{
-        setData(response.data)
-      })
-      .catch((error)=>{console.log(error)})
-  },[])
+  
+  const admin = true;
 
   return (
-    <div>
-      <Card/> 
-    </div>
-  );
-  
+    <>
+      {admin ?
+      (<AdminHeader/>) : (<UserHeader/>)}
+      (<Card/>)
+    </>
+  )
 }
 
 export default App
