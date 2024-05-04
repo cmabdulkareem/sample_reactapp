@@ -2,7 +2,10 @@ import React, {useState, useEffect} from 'react'
 import Card from "./component/Card";
 import AdminHeader from './component/Header/AdminHeader';
 import UserHeader from './component/Header/UserHeader';
+import SignUp from './component/SignUp';
 import axios from "axios";
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import Login from './component/Login';
 
 
 
@@ -11,11 +14,13 @@ function App() {
   const admin = true;
 
   return (
-    <>
-      {admin ?
-      (<AdminHeader/>) : (<UserHeader/>)}
-      (<Card/>)
-    </>
+
+    <BrowserRouter>
+      <Routes>
+        <Route path='/register' element={<SignUp/>}></Route>
+        <Route path='/login' element={<Login/>}></Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
