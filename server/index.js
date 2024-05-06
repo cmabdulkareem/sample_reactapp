@@ -11,7 +11,7 @@ const app = express();
 const port = 3000;
 
 app.use(cors({
-    origin: ['https://sample-fronetend.vercel.app/'],
+    origin: ['http://localhost:5173/'],
     methods: ["POST", "GET"], // Adjust the port to match your React app's port
     credentials: true
 }));
