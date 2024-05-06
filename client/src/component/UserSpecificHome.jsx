@@ -9,7 +9,7 @@ function UserSpecificPage(){
 
 
     useEffect(() => {
-        axios.get('https://sample-reactapp.vercel.app', { withCredentials: true })
+        axios.get('http://localhost:3000/', { withCredentials: true })
             .then((result) => {
                 if(result.data.Valid){
                     setName(result.data.username)
