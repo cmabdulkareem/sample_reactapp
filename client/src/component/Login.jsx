@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 
 function SignUp() {
@@ -9,13 +9,29 @@ function SignUp() {
 
     const navigate = useNavigate()
 
+    useEffect(() => {
+        axios.get('http://localhost:3000/', { withCredentials: true })
+            .then((result) => {
+                if(result.data.Valid){
+                    navigate('/')
+                }else{
+                    navigate('/login')
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+    }, [])
+
+    axios.defaults.withCredentials = true;
     const handleSubmit = (e) =>{
         e.preventDefault()
         axios.post("http://localhost:3000/login", {email, password})
             .then((result)=>{
                 console.log(result)
-                if(result.data == "success"){
-                    navigate('/home')
+                if(result.data.Login){
+                    navigate('/')
                 }
             })
             .catch((error)=>{

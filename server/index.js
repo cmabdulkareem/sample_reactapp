@@ -3,16 +3,43 @@ import cors from 'cors';
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose';
 import UserModel from './models/users.js';
+import session from 'express-session'
+import cookieParser from 'cookie-parser';
 
 
 const app = express();
 const port = 3000;
 
-app.use(cors())
+app.use(cors({
+    origin: ['http://localhost:5173'],
+    methods: ["POST", "GET"], // Adjust the port to match your React app's port
+    credentials: true
+}));
+
 app.use(bodyParser.json())
+app.use(cookieParser())
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized : false,
+    cookie: {
+        secure: false,
+        maxAge: 1000 * 60 * 60 * 24
+    }
+}))
 app.use('/images', express.static('public/images'))
 
 mongoose.connect("mongodb://localhost:27017/react")
+
+
+app.get('/', (req,res)=>{
+    if(req.session.name){
+        console.log(req.session.name)
+        res.json({Valid: true, username: req.session.name})
+    }else{
+        res.json({Valid: false})
+    }
+})
 
 
 app.post('/register', (req,res)=>{
@@ -30,7 +57,9 @@ app.post("/login", (req, res) => {
     .then((user) => {
         if (user) { // Check if user object exists
             if (user.password === password) {
-                res.json("success");
+                req.session.name = user.name
+                console.log(req.session.name)
+                res.json({Login: true});
             } else {
                 res.json("password incorrect");
             }
