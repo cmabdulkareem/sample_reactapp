@@ -12,7 +12,7 @@ function SignUp() {
 
     const handleSubmit = (e) =>{
         e.preventDefault()
-        axios.post("sample-reactapp.vercel.app", {name, email, password})
+        axios.post("sample-reactapp.vercel.app/register", {name, email, password})
             .then((result)=>{
                 console.log(result)
                 navigate('/login')
