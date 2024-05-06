@@ -10,7 +10,7 @@ function SignUp() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        axios.get('http://localhost:3000/', { withCredentials: true })
+        axios.get('sample-reactapp.vercel.app', { withCredentials: true })
             .then((result) => {
                 if(result.data.Valid){
                     navigate('/')
@@ -27,7 +27,7 @@ function SignUp() {
     axios.defaults.withCredentials = true;
     const handleSubmit = (e) =>{
         e.preventDefault()
-        axios.post("http://localhost:3000/login", {email, password})
+        axios.post("sample-reactapp.vercel.app", {email, password})
             .then((result)=>{
                 console.log(result)
                 if(result.data.Login){
