@@ -27,7 +27,7 @@ function SignUp() {
     axios.defaults.withCredentials = true;
     const handleSubmit = (e) =>{
         e.preventDefault()
-        axios.post("sample-reactapp.vercel.app", {email, password})
+        axios.post("sample-reactapp.vercel.app/login", {email, password})
             .then((result)=>{
                 console.log(result)
                 if(result.data.Login){
