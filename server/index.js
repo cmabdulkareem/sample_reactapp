@@ -11,7 +11,7 @@ const app = express();
 const port = 3000;
 
 app.use(cors({
-    origin: ['sample-reactapp.vercel.app'],
+    origin: [''],
     methods: ["POST", "GET"], // Adjust the port to match your React app's port
     credentials: true
 }));
