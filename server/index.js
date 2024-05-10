@@ -5,17 +5,18 @@ import mongoose from 'mongoose';
 import UserModel from './models/users.js';
 import session from 'express-session'
 import cookieParser from 'cookie-parser';
+import fileUpload from 'express-fileupload';
 
 
 const app = express();
 const port = 3000;
 
 app.use(cors({
-    origin: ['http://localhost:5173/'],
-    methods: ["POST", "GET"], // Adjust the port to match your React app's port
+    origin: ['http://localhost:5173'],
+    methods: ["POST", "GET"],
     credentials: true
 }));
-
+app.use(fileUpload())
 app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(session({
@@ -43,6 +44,7 @@ app.get('/', (req,res)=>{
 
 
 app.post('/register', (req,res)=>{
+    console.log(req.files)
     UserModel.create(req.body)
         .then((user)=>{ res.json(user)})
         .catch((error)=>{res.json(error)})
