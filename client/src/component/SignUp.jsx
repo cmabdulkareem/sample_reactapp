@@ -1,37 +1,32 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom';
 
 function SignUp() {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    const [name, setName] = useState()
-    const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
-    const [image, setImage] = useState();
-
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        formData.append('name', name);
-        formData.append('email', email);
-        formData.append('password', password);
-        formData.append('image', image);
+        
+        const userData = {
+            name,
+            email,
+            password
+        };
     
-        axios.post("http://localhost:3000/register", formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        })
-        .then((result) => {
-            console.log(result);
-            navigate('/login');
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-    }
+        axios.post("/api/register", userData)
+            .then((result) => {
+                console.log(result);
+                navigate('/login');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
     return (
         <>
@@ -72,18 +67,6 @@ function SignUp() {
                                 required
                             />
                         </div>
-                        <div className="mb-3">
-                            <label htmlFor="image" className="form-label">Profile Picture</label>
-                            <input
-                                type="file"
-                                className="form-control"
-                                id="image"
-                                onChange={(e) => setImage(e.target.files[0])}
-                                name="image"
-                                accept="image/*"
-                                required
-                            />
-                        </div>
                         <button type="submit" className="btn btn-primary">Register</button>
                     </form>
 
@@ -91,7 +74,7 @@ function SignUp() {
                 </div>
             </div>
         </>
-    )
+    );
 }
 
 export default SignUp;

@@ -1,15 +1,20 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser'
-import mongoose from 'mongoose';
-import UserModel from './models/users.js';
+import './config/connection.js';
 import session from 'express-session'
 import cookieParser from 'cookie-parser';
 import fileUpload from 'express-fileupload';
+import path from 'path';
+
+
+import userRouter from './routes/userRouter.js';
+import productRouter from './routes/productRouter.js';
 
 
 const app = express();
 const port = 3000;
+
 
 app.use(cors({
     origin: ['http://localhost:5173'],
@@ -30,50 +35,9 @@ app.use(session({
 }))
 app.use('/images', express.static('public/images'))
 
-mongoose.connect("mongodb://localhost:27017/react")
+app.use('/api',userRouter)
+app.use('/api',productRouter)
 
-
-app.get('/', (req,res)=>{
-    if(req.session.name){
-        console.log(req.session.name)
-        res.json({Valid: true, username: req.session.name})
-    }else{
-        res.json({Valid: false})
-    }
-})
-
-
-app.post('/register', (req,res)=>{
-    console.log(req.files)
-    UserModel.create(req.body)
-        .then((user)=>{ res.json(user)})
-        .catch((error)=>{res.json(error)})
-})
-
-app.post("/login", (req, res) => {
-    // Destructuring email and password from req.body
-    const { email, password } = req.body;
- 
-    // Using findOne to fetch single user
-    UserModel.findOne({ email: email })
-    .then((user) => {
-        if (user) { // Check if user object exists
-            if (user.password === password) {
-                req.session.name = user.name
-                console.log(req.session.name)
-                res.json({Login: true});
-            } else {
-                res.json("password incorrect");
-            }
-        } else {
-            res.json("no email found");
-        }
-    })
-    .catch((error) => {
-        res.status(500).json(error);
-    });
- });
- 
 
     app.listen(port, ()=>{
         console.log("server running")

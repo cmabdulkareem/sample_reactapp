@@ -1,29 +1,53 @@
-import React, {useState, useEffect} from 'react'
-import Card from "./component/Card";
-import AdminHeader from './component/Header/AdminHeader';
-import UserHeader from './component/Header/UserHeader';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import SignUp from './component/SignUp';
-import UserSpecificPage from './component/UserSpecificHome';
-import axios from "axios";
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import Header from './component/Header';
+import Body from './component/Body';
+import Footer from './component/Footer';
 import Login from './component/Login';
 
-
-
 function App() {
-  
-  const admin = true;
+  const [name, setName] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios.get('/api/', { withCredentials: true })
+      .then((result) => {
+        if (result.data.Valid) {
+          setName(result.data.username);
+          setIsAdmin(result.data.isAdmin);
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoggedIn(false);
+      });
+  }, [navigate]);
 
   return (
-
-    <BrowserRouter>
-      <Routes>
-        <Route path='/register' element={<SignUp/>}></Route>
-        <Route path='/login' element={<Login/>}></Route>
-        <Route path='/' element={<UserSpecificPage/>}></Route>
-      </Routes>
-    </BrowserRouter>
-  )
+    <Routes>
+      <Route path='/register' element={<SignUp />} />
+      <Route path='/login' element={<Login />} />
+      {isLoggedIn ? (
+          <Route path='/*' element={
+            <div>
+              <Header name={name} isAdmin={isAdmin} isLoggedIn={isLoggedIn}/>
+              <Body name={name} isAdmin={isAdmin} isLoggedIn={isLoggedIn} />
+              <Footer name={name} isAdmin={isAdmin} isLoggedIn={isLoggedIn} />
+            </div>
+          }>
+          </Route>
+      ) : (
+        <Route path='/' element={<Login />} />
+      )}
+    </Routes>
+  );
 }
 
-export default App
+export default App;
