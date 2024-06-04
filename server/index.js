@@ -37,6 +37,8 @@ app.use('/api',userRouter)
 app.use('/api',productRouter)
 
 
-    app.listen(port, ()=>{
+    app.listen(process.env.PORT || 3000, ()=>{
         console.log("server running")
     })
+
+
