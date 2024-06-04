@@ -103,7 +103,7 @@ function UserCart() {
     };
 
     const handleCheckout = () => {
-        axios.post('/api/create-order', { amount: totalPrice })
+        axios.post('/api/create-order', { amount: totalPrice, quantity: data })
             .then(response => {
                 const { id, amount, currency } = response.data;
 

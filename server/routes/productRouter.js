@@ -4,13 +4,14 @@ import ProductModel from '../models/productModel.js';
 import CartModel from '../models/cartModel.js';
 import UserModel from '../models/userModel.js';
 import path from 'path';
-import Razorpay from 'razorpay'
+import Razorpay from 'razorpay';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const razorpay = new Razorpay({
-    key_id:'rzp_test_fBtO3mTwWzgN9a',
-    key_secret: 'LkLPg5fmExjs4PGe77zg6CXW'
+    key_id:process.env.key_id,
+    key_secret: process.env.key_secret
 })
-
 
 router.post('/admin/products', (req, res)=>{
     const product = new ProductModel(req.body);
@@ -286,7 +287,7 @@ router.post('/create-order', (req, res)=>{
 router.post('/verify-payment', (req, res)=>{
     const {razorpay_payment_id, razorpay_order_id} = req.body
 
-    const shasum = crypto.createHmac('sha256', 'LkLPg5fmExjs4PGe77zg6CXW')
+    const shasum = crypto.createHmac('sha256', process.env.key_secret)
 
     shasum.update(`${razorpay_order_id}|| ${razorpay_payment_id}`)
 
