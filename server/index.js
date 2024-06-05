@@ -15,11 +15,7 @@ dotenv.config()
 const app = express();
 const port = 3000;
 
-app.use(cors({
-    origin: '*',
-    methods: ["POST", "GET"],
-    credentials: true
-}));
+app.use(cors());
 
 app.use(fileUpload())
 app.use(bodyParser.json())
