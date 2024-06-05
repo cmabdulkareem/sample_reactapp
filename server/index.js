@@ -6,9 +6,10 @@ import session from 'express-session'
 import cookieParser from 'cookie-parser';
 import fileUpload from 'express-fileupload';
 import path from 'path';
-
 import userRouter from './routes/userRouter.js';
 import productRouter from './routes/productRouter.js';
+import dotenv from 'dotenv';
+dotenv.config()
 
 
 const app = express();
