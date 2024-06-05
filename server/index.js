@@ -16,7 +16,7 @@ const app = express();
 const port = 3000;
 
 app.use(cors({
-    origin: ['https://client-navy-seven.vercel.app/'],
+    origin: ['https://client-navy-seven.vercel.app'],
     methods: ["POST", "GET"],
     credentials: true
 }));
