@@ -13,7 +13,7 @@ function UserCart() {
     };
 
     useEffect(() => {
-        axios.get("/api/user/viewcart")
+        axios.get(`${import.meta.env.VITE_SERVER_URL}/api/user/viewcart`)
             .then((response) => {
                 const products = response.data.products;
                 setData(products);
@@ -43,7 +43,7 @@ function UserCart() {
 
 
     const handleDelete = (itemId) => {
-        axios.delete(`/api/deletefromcart/${itemId}`)
+        axios.delete(`${import.meta.env.VITE_SERVER_URL}/api/deletefromcart/${itemId}`)
             .then((response) => {
                 console.log(response.data);
                 const newData = data.filter(item => item._id !== itemId);
@@ -58,7 +58,7 @@ function UserCart() {
 
 
     const handleIncrement = (itemId) => {
-        axios.put(`/api/cart/increment/${itemId}`)
+        axios.put(`${import.meta.env.VITE_SERVER_URL}/api/cart/increment/${itemId}`)
             .then((response) => {
                 if (response.data.success) {
                     const newData = data.map(item => {
@@ -81,7 +81,7 @@ function UserCart() {
 
 
     const handleDecrement = (itemId) => {
-        axios.put(`/api/cart/decrement/${itemId}`)
+        axios.put(`${import.meta.env.VITE_SERVER_URL}/api/cart/decrement/${itemId}`)
             .then((response) => {
                 if (response.data.success) {
                     const newData = data.map(item => {
@@ -103,7 +103,7 @@ function UserCart() {
     };
 
     const handleCheckout = () => {
-        axios.post('/api/create-order', { amount: totalPrice, quantity: data })
+        axios.post(`${import.meta.env.VITE_SERVER_URL}/api/create-order`, { amount: totalPrice, quantity: data })
             .then(response => {
                 const { id, amount, currency } = response.data;
 
@@ -115,7 +115,7 @@ function UserCart() {
                     description: 'Order Payment',
                     order_id: id,
                     handler: (response) => {
-                        axios.post('/api/verify-payment', response)
+                        axios.post(`${import.meta.env.VITE_SERVER_URL}/api/verify-payment`, response)
                             .then(response => {
                                 if (response.data.success) {
                                     alert('Payment successful');

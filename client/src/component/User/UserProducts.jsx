@@ -12,7 +12,7 @@ function UserProducts() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get("/api/admin/viewproducts")
+        axios.get(`${import.meta.env.VITE_SERVER_URL}/api/admin/viewproducts`)
             .then((response) => {
                 setData(response.data);
             })
@@ -20,7 +20,7 @@ function UserProducts() {
     }, []);
 
     const handleAddToCart = (itemId) => {
-        axios.get(`/api/getcart/${itemId}`)
+        axios.get(`${import.meta.env.VITE_SERVER_URL}/api/getcart/${itemId}`)
             .then((response) => {
                 setCartQty(response.data.cartItems);
             })

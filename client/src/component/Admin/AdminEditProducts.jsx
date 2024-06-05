@@ -13,7 +13,7 @@ function AdminEditProducts() {
     const [previewImage, setPreviewImage] = useState(""); // State for image preview URL
 
     useEffect(() => {
-        axios.get(`/api/editproducts/${id}`)
+        axios.get(`${import.meta.env.VITE_SERVER_URL}/api/editproducts/${id}`)
             .then((result) => {
                 setItemName(result.data.itemName);
                 setItemDesc(result.data.itemDesc);

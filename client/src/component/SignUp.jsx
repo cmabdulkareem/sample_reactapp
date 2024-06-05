@@ -18,7 +18,7 @@ function SignUp() {
             password
         };
     
-        axios.post("/api/register", userData)
+        axios.post(`${import.meta.env.VITE_SERVER_URL}/api/register`, userData)
             .then((result) => {
                 console.log(result);
                 navigate('/login');

@@ -16,7 +16,7 @@ function AdminAddProducts() {
         formData.append('itemPrice', itemPrice);
         formData.append('itemImage', itemImage);
     
-        axios.post("/api/admin/products", formData, {
+        axios.post(`${import.meta.env.VITE_SERVER_URL}/api/admin/products`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

@@ -8,7 +8,7 @@ function AdminProducts() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get("/api/admin/viewproducts")
+        axios.get(`${import.meta.env.VITE_SERVER_URL}/api/admin/viewproducts`)
             .then((response) => {
                 setData(response.data);
             })
@@ -16,7 +16,7 @@ function AdminProducts() {
     }, []);
 
     const handleDelete = (itemId) => {
-        axios.delete(`/api/deleteproduct/${itemId}`)
+        axios.delete(`${import.meta.env.VITE_SERVER_URL}/api/deleteproduct/${itemId}`)
             .then((response) => {
                 // Filter out the deleted item from the data array
                 const newData = data.filter(item => item._id !== itemId);

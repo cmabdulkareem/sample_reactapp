@@ -10,7 +10,7 @@ function SignUp() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        axios.get('/api/', { withCredentials: true })
+        axios.get(`${import.meta.env.VITE_SERVER_URL}/api/`, { withCredentials: true })
             .then((result) => {
                 if(result.data.Valid){
                     navigate('/')
