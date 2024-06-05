@@ -27,7 +27,7 @@ function SignUp() {
     axios.defaults.withCredentials = true;
     const handleSubmit = (e) =>{
         e.preventDefault()
-        axios.post("/api/login", {email, password})
+        axios.post(`${import.meta.env.VITE_SERVER_URL}/api/login`, {email, password})
             .then((result)=>{
                 if(result.data.Login){
                     navigate('/')
