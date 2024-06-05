@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
+import dotenv from 'dotenv';
 
-mongoose.connect("mongodb://localhost:27017/react")
+dotenv.config()
+
+mongoose.connect(process.env.MONGO_URL)
     .then((result)=>{
         console.log("connected to server")
     })
