@@ -12,7 +12,7 @@ import productRouter from './routes/productRouter.js';
 
 
 const app = express();
-const port = process.env.PORT;
+const port = 3000;
 
 app.use(cors({
     origin: ['http://localhost:5173'],
@@ -37,6 +37,8 @@ app.use('/api',userRouter)
 app.use('/api',productRouter)
 
 
-    app.listen(port, ()=>{
+    app.listen(process.env.PORT || 3000, ()=>{
         console.log("server running")
     })
+
+
