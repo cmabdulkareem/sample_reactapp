@@ -174,7 +174,7 @@ function UserCart() {
                                     {item.quantity}
                                     <button className="btn btn-warning rounded ms-2" onClick={() => handleIncrement(item._id)}>+</button>
                                 </td>
-                                <td><img src={`http://localhost:3000/images/product-images/${item._id}.jpg?timestamp=${new Date().getTime()}`} style={{ maxWidth: "50px" }} alt={item.itemName} /></td>
+                                <td><img src={`${import.meta.env.VITE_IMAGEURL}/images/product-images/${item._id}.jpg?timestamp=${new Date().getTime()}`} style={{ maxWidth: "50px" }} alt={item.itemName} /></td>
                                 <td>
                                     <button onClick={() => handleDelete(item._id)} className="btn btn-outline-danger">Delete</button>
                                 </td>

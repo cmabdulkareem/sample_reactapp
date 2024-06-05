@@ -102,7 +102,7 @@ function UserProducts() {
                         displayedData.map((item, index) => (
                             <div className="col-md-2 mb-3" key={item._id}>
                                 <div className="card">
-                                    <img src={`http://localhost:3000/images/product-images/${item._id}.jpg?timestamp=${new Date().getTime()}`} className="card-img-top" alt="Card Image" style={{ minHeight: "200px" }} />
+                                    <img src={`${import.meta.env.VITE_IMAGEURL}/images/product-images/${item._id}.jpg?timestamp=${new Date().getTime()}`} className="card-img-top" alt="Card Image" style={{ minHeight: "200px" }} />
                                     <div className="card-body">
                                         <h5 className="card-title">{item.itemName}</h5>
                                         <p className="card-text" style={{ minHeight: "50px" }}>{item.itemDesc}</p>
