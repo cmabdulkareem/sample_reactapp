@@ -16,10 +16,11 @@ const app = express();
 const port = 3000;
 
 app.use(cors({
-    origin: ['https://client-navy-seven.vercel.app'],
+    origin: '*',
     methods: ["POST", "GET"],
     credentials: true
 }));
+
 app.use(fileUpload())
 app.use(bodyParser.json())
 app.use(cookieParser())
